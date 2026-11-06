@@ -1,0 +1,12 @@
+# Local-only build and generated files
+node_modules/
+clients/ios/AuthorizationLab.xcodeproj/
+clients/ios/AuthorizationLab/Info.plist
+clients/ios/.build/
+clients/ios/DerivedData/
+clients/android/.gradle/
+clients/android/.kotlin/
+clients/android/build/
+clients/android/app/build/
+clients/android/local.properties
+.DS_Store

@@ -1,15 +1,17 @@
-# API authorization boundaries — Demonic Binary
+# Demonic Binary — API authorization lab
 
-An original **synthetic**, runnable BOLA (Broken Object Level Authorization) lab. It illustrates why authentication and UUID-like IDs are not enough to authorize access to multi-tenant resources. **Node.js 20+**, no dependencies or installs.
+Original, public demonstration of **Broken Object Level Authorization (BOLA)** with a deliberately vulnerable handler, guarded backend policy and two native mobile demo clients. No real clients, credentials or user data.
 
-## Run
+## 1. Run the backend
+
+Requires Node.js 20+. No external Node dependencies.
 
 ```sh
 npm test
 npm start
 ```
 
-In a separate terminal, compare:
+With the server running:
 
 ```sh
 curl -i -H 'Authorization: Bearer demo-alice' http://127.0.0.1:8765/guarded/documents/doc-101
@@ -17,10 +19,21 @@ curl -i -H 'Authorization: Bearer demo-alice' http://127.0.0.1:8765/guarded/docu
 curl -i -H 'Authorization: Bearer demo-alice' http://127.0.0.1:8765/vulnerable/documents/doc-202
 ```
 
-Expected: **200 / 404 / 200**. The last 200 is the deliberately vulnerable path reading **synthetic** Beta tenant data. The fixed endpoint enforces active account status, tenant membership and object ownership (or a same-tenant admin role). It chooses privacy-preserving 404 for denied objects.
+Expected HTTP status: **200 / 404 / 200**. The last response intentionally returns a record belonging to another *fictional* tenant.
 
-**Safety:** This is not a production auth system. Tokens are fake, all data is fictional, and the server binds only to loopback (127.0.0.1). **Never expose the vulnerable route to a network, reuse its token approach, or load real customer data.** Real deployments need identity verification, denial logging, write/export coverage, revocation, delegation, job/caching boundaries and abuse protections.
+## 2. Native app clients
 
-Interactive browser walkthrough: https://demonicbinary.com/engineering-labs/api-authorization
+- **[SwiftUI iOS Simulator app](clients/ios/README.md)** — `xcodegen generate` and `xcodebuild ... build` using Xcode. Built successfully with Xcode 27.2 on Apple Silicon.
+- **[Kotlin Android Emulator app](clients/android/README.md)** — `bash gradlew :app:assembleDebug` with Android SDK 36. Built successfully with the available local Android toolchain.
 
-Copyright 2026 Demonic Binary. MIT License.
+These are **buildable development demo apps**, not approved Apple App Store or Google Play Store listings. Simulator/emulator runtime behavior still needs device-level testing; compilation alone is not a release certification.
+
+## Interactive site
+
+[Open the browser-only interactive lab](https://demonicbinary.com/engineering-labs/api-authorization) and [read the technical article](https://demonicbinary.com/research/api-authorization-enforce-every-object-boundary).
+
+## Security and scope
+
+The Node service binds **only to 127.0.0.1**. It has hard-coded toy identities and deliberately vulnerable behavior. Never expose it through a public tunnel or production server, copy the token scheme, load private data or use these apps for real account access. The Android debug app permits cleartext only for the local educational endpoint; release mode disables it.
+
+License: MIT. Copyright 2026 Demonic Binary.

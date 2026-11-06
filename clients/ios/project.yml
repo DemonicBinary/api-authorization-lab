@@ -1,0 +1,29 @@
+name: AuthorizationLab
+options:
+  bundleIdPrefix: com.demonicbinary
+  deploymentTarget:
+    iOS: "17.0"
+targets:
+  AuthorizationLab:
+    type: application
+    platform: iOS
+    sources:
+      - AuthorizationLab
+    settings:
+      base:
+        PRODUCT_NAME: AuthorizationLab
+        PRODUCT_BUNDLE_IDENTIFIER: com.demonicbinary.authorizationlab
+        SWIFT_VERSION: 5.0
+        TARGETED_DEVICE_FAMILY: "1,2"
+        GENERATE_INFOPLIST_FILE: "YES"
+        ALWAYS_SEARCH_USER_PATHS: "NO"
+    info:
+      path: AuthorizationLab/Info.plist
+      properties:
+        CFBundleDisplayName: Authorization Lab
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        UILaunchScreen: {}
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+        NSLocalNetworkUsageDescription: "Connect to the synthetic authorization demo running on your Mac."
